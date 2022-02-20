@@ -1,0 +1,7 @@
+To do:: 
+
+Add enemies
+Add animation
+Add Grappling Hook 
+Add attack 
+Add Guard 
