@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Link
   - GrapplingPlatform
+  - Enemies
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Rope
   - RopeCutter
   - GrapplingPlatform
-  - 
+  - Enemies
   - 
   - 
   - 
@@ -72,6 +73,9 @@ TagManager:
     locked: 0
   - name: Grappling
     uniqueID: 1561378557
+    locked: 0
+  - name: Enemies
+    uniqueID: 2483185057
     locked: 0
   - name: Player
     uniqueID: 1304178101

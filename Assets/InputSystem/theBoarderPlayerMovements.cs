@@ -89,6 +89,15 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Guard"",
+                    ""type"": ""Button"",
+                    ""id"": ""b87fcc15-dcc4-40a2-885d-b6290e52f1aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -298,6 +307,17 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DestroyGrapplingHook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0604433a-71b7-43f8-a6b5-235665ac0130"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Guard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -892,6 +912,7 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         m_Player_ClimbIce = m_Player.FindAction("ClimbIce", throwIfNotFound: true);
         m_Player_FireGraplingHook = m_Player.FindAction("FireGraplingHook", throwIfNotFound: true);
         m_Player_DestroyGrapplingHook = m_Player.FindAction("DestroyGrapplingHook", throwIfNotFound: true);
+        m_Player_Guard = m_Player.FindAction("Guard", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -970,6 +991,7 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
     private readonly InputAction m_Player_ClimbIce;
     private readonly InputAction m_Player_FireGraplingHook;
     private readonly InputAction m_Player_DestroyGrapplingHook;
+    private readonly InputAction m_Player_Guard;
     public struct PlayerActions
     {
         private @TheBoarderPlayerMovements m_Wrapper;
@@ -981,6 +1003,7 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         public InputAction @ClimbIce => m_Wrapper.m_Player_ClimbIce;
         public InputAction @FireGraplingHook => m_Wrapper.m_Player_FireGraplingHook;
         public InputAction @DestroyGrapplingHook => m_Wrapper.m_Player_DestroyGrapplingHook;
+        public InputAction @Guard => m_Wrapper.m_Player_Guard;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1011,6 +1034,9 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                 @DestroyGrapplingHook.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroyGrapplingHook;
                 @DestroyGrapplingHook.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroyGrapplingHook;
                 @DestroyGrapplingHook.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroyGrapplingHook;
+                @Guard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGuard;
+                @Guard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGuard;
+                @Guard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGuard;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1036,6 +1062,9 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                 @DestroyGrapplingHook.started += instance.OnDestroyGrapplingHook;
                 @DestroyGrapplingHook.performed += instance.OnDestroyGrapplingHook;
                 @DestroyGrapplingHook.canceled += instance.OnDestroyGrapplingHook;
+                @Guard.started += instance.OnGuard;
+                @Guard.performed += instance.OnGuard;
+                @Guard.canceled += instance.OnGuard;
             }
         }
     }
@@ -1199,6 +1228,7 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         void OnClimbIce(InputAction.CallbackContext context);
         void OnFireGraplingHook(InputAction.CallbackContext context);
         void OnDestroyGrapplingHook(InputAction.CallbackContext context);
+        void OnGuard(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

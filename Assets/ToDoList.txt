@@ -2,6 +2,11 @@ To do::
 
 Add enemies
 Add animation
-Add Grappling Hook 
+Add Grappling Hook -- Done
 Add attack 
-Add Guard 
+Add beam like thing 
+Add health bars
+Add Stamina ?
+
+
+Laser and health bars

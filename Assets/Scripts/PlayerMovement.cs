@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     public void Jump2(InputAction.CallbackContext context){
         Debug.Log("Jump " + context);
         if(context.performed && playerBody.IsTouchingLayers(LayerMask.GetMask("Platform","Ground", "ClimbableIce"))){
-            Debug.Log("Jump " + context);
+            // Debug.Log("Jump " + context);
             playerRgBd.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
             // if(playerBody.IsTouchingLayers())
         }

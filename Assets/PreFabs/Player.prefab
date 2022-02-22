@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8911733756807672247}
   - component: {fileID: 1714381916}
   - component: {fileID: 1714381917}
+  - component: {fileID: 1714381923}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1304178101
-  m_SortingLayer: 8
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_Sprite: {fileID: -3318188226485093758, guid: ae72133dacba6ec4eb33ecde48f50e56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -205,7 +206,19 @@ MonoBehaviour:
     m_ActionId: 71392b79-13e2-43a7-b99d-badf5fed79ff
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8911733756807672254}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 9543e546-5468-4401-b125-ecfa4d3a77ab
     m_ActionName: Player/ClimbIce[/Keyboard/w,/Keyboard/s]
   - m_PersistentCalls:
@@ -248,6 +261,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2e6128e0-5b81-47c5-83ad-b43ee0dc32c7
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1714381923}
+        m_TargetAssemblyTypeName: GrapplingHook, Assembly-CSharp
+        m_MethodName: FireGrapplingHook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6fb40625-091e-4c43-bb83-dd51bb92634f
+    m_ActionName: Player/FireGraplingHook[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1714381923}
+        m_TargetAssemblyTypeName: GrapplingHook, Assembly-CSharp
+        m_MethodName: DestroyGrapplingHook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9cee25f8-415e-41c1-bbc8-7ff433975192
+    m_ActionName: Player/DestroyGrapplingHook[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -265,3 +310,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2d8974dbe3e7b47a9f32cefe83ffe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1714381923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911733756807672254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8e6dad9d1005e54f8acbbbcdafdb438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ropeLinkPrefab: {fileID: 7137455186284408, guid: 578b01697ec14914098cc0494339e901, type: 3}
+  numberOfLinksLower: 4
