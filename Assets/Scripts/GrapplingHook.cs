@@ -32,19 +32,36 @@ public class GrapplingHook : MonoBehaviour
         if(rayHit.collider){
             if(rayHit.collider.tag == "GrapplingPlatform")
             {
+                bool alreadyExistingLinkDetected = false;
                 Transform[] link = gameObject.GetComponentsInChildren<Transform>();
-                if(link.Length > 1 &&   link[1].gameObject.tag == "Link"){
+                alreadyExistingLinkDetected = CheckForExistingLink(alreadyExistingLinkDetected, link);
+                if (alreadyExistingLinkDetected)
+                {
                     // Debug.Log("found child object of type link");
                     DestroyGrapplingHook(context);
                     GenerateGrapplingHook(rayHit);
-                }else{
+                }
+                else
+                {
                     GenerateGrapplingHook(rayHit);
                 }
-                
+
             }
         }
     }
 
+    private static bool CheckForExistingLink(bool alreadyExistingLinkDetected, Transform[] link)
+    {
+        for (int i = 0; i < link.Length; i++)
+        {
+            if (link[i].gameObject.tag == "Link")
+            {
+                alreadyExistingLinkDetected = true;
+            }
+        }
+
+        return alreadyExistingLinkDetected;
+    }
 
     public void DestroyGrapplingHook(InputAction.CallbackContext context){
         if(context.canceled || context.started){

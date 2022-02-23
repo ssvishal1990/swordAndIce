@@ -98,6 +98,24 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LaserControl"",
+                    ""type"": ""Button"",
+                    ""id"": ""14b6498e-e445-4aab-837c-45e1deac7084"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HeavyFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d526a88-9cc3-41f0-adb8-266cf7a90b75"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -313,11 +331,33 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                 {
                     ""name"": """",
                     ""id"": ""0604433a-71b7-43f8-a6b5-235665ac0130"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/alt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a23c7212-a8ad-43ef-a9c9-4de739deb490"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LaserControl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""216109c0-b719-401f-85db-f727543056b5"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeavyFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -913,6 +953,8 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         m_Player_FireGraplingHook = m_Player.FindAction("FireGraplingHook", throwIfNotFound: true);
         m_Player_DestroyGrapplingHook = m_Player.FindAction("DestroyGrapplingHook", throwIfNotFound: true);
         m_Player_Guard = m_Player.FindAction("Guard", throwIfNotFound: true);
+        m_Player_LaserControl = m_Player.FindAction("LaserControl", throwIfNotFound: true);
+        m_Player_HeavyFire = m_Player.FindAction("HeavyFire", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -992,6 +1034,8 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
     private readonly InputAction m_Player_FireGraplingHook;
     private readonly InputAction m_Player_DestroyGrapplingHook;
     private readonly InputAction m_Player_Guard;
+    private readonly InputAction m_Player_LaserControl;
+    private readonly InputAction m_Player_HeavyFire;
     public struct PlayerActions
     {
         private @TheBoarderPlayerMovements m_Wrapper;
@@ -1004,6 +1048,8 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         public InputAction @FireGraplingHook => m_Wrapper.m_Player_FireGraplingHook;
         public InputAction @DestroyGrapplingHook => m_Wrapper.m_Player_DestroyGrapplingHook;
         public InputAction @Guard => m_Wrapper.m_Player_Guard;
+        public InputAction @LaserControl => m_Wrapper.m_Player_LaserControl;
+        public InputAction @HeavyFire => m_Wrapper.m_Player_HeavyFire;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1037,6 +1083,12 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                 @Guard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGuard;
                 @Guard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGuard;
                 @Guard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGuard;
+                @LaserControl.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLaserControl;
+                @LaserControl.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLaserControl;
+                @LaserControl.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLaserControl;
+                @HeavyFire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyFire;
+                @HeavyFire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyFire;
+                @HeavyFire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyFire;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1065,6 +1117,12 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                 @Guard.started += instance.OnGuard;
                 @Guard.performed += instance.OnGuard;
                 @Guard.canceled += instance.OnGuard;
+                @LaserControl.started += instance.OnLaserControl;
+                @LaserControl.performed += instance.OnLaserControl;
+                @LaserControl.canceled += instance.OnLaserControl;
+                @HeavyFire.started += instance.OnHeavyFire;
+                @HeavyFire.performed += instance.OnHeavyFire;
+                @HeavyFire.canceled += instance.OnHeavyFire;
             }
         }
     }
@@ -1229,6 +1287,8 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         void OnFireGraplingHook(InputAction.CallbackContext context);
         void OnDestroyGrapplingHook(InputAction.CallbackContext context);
         void OnGuard(InputAction.CallbackContext context);
+        void OnLaserControl(InputAction.CallbackContext context);
+        void OnHeavyFire(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

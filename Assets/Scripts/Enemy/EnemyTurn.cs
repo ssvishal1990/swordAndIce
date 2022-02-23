@@ -41,7 +41,6 @@ public class EnemyTurn : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if(other.tag == "Ground"){
-            Debug.Log("Ground exit detected");
             moveValue.x *= -1;
             Vector3 enemyLocalScale = mainEnemyBodyObject.transform.localScale;
             enemyLocalScale.x *= -1;

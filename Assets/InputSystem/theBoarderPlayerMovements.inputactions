@@ -76,6 +76,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LaserControl",
+                    "type": "Button",
+                    "id": "14b6498e-e445-4aab-837c-45e1deac7084",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HeavyFire",
+                    "type": "Button",
+                    "id": "4d526a88-9cc3-41f0-adb8-266cf7a90b75",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -291,11 +309,33 @@
                 {
                     "name": "",
                     "id": "0604433a-71b7-43f8-a6b5-235665ac0130",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/alt",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Guard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a23c7212-a8ad-43ef-a9c9-4de739deb490",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LaserControl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "216109c0-b719-401f-85db-f727543056b5",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeavyFire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
