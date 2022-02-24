@@ -13,6 +13,8 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] int AttackDmageLight = 1;
     [SerializeField] int AttackDmageHeavy = 2;
+
+    private List<GameObject> currentGameObjects;
     void Start()
     {
 
@@ -65,4 +67,12 @@ public class PlayerAttack : MonoBehaviour
             return AttackDmageLight;
         }   
     }
+
+    void performLightAttack(InputAction.CallbackContext context){
+        if(context.started || context.canceled){
+            return;
+        }
+        CapsuleCollider2D lightAttackRange = gameObject.GetComponent<CapsuleCollider2D>();
+    }
+
 }

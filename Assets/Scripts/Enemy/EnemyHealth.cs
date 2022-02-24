@@ -23,14 +23,19 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D attack)
     {
-        Debug.Log(other.collider);
-        if(other.gameObject.tag == "HeavyAttack"){
-            Destroy(other.gameObject);
-            health -= pttack.getHitValue(other.gameObject.tag);
+        Debug.Log(attack.collider);
+        if(attack.gameObject.tag == "HeavyAttack"){
+            Destroy(attack.gameObject);
+            health -= pttack.getHitValue(attack.gameObject.tag);
             Debug.Log(health);
         }
         
+    }
+
+    public void  takeLightHitDamage(int damageValue){
+        Debug.Log("taking light hit damage");
+        health -= damageValue;
     }
 }

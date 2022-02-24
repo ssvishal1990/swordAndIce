@@ -10,6 +10,7 @@ TagManager:
   - Link
   - GrapplingPlatform
   - Enemies
+  - HeavyAttack
   layers:
   - Default
   - TransparentFX
