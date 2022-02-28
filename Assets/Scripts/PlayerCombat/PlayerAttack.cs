@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,71 +9,72 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] GameObject heavy_attack_prefab;
-    [SerializeField] float waitBeforeDestroy = 3f;
-    [SerializeField] float forceOnX = 50f;
+    [SerializeField] float waitBeforeDestroy = 1f;
+    [SerializeField] float forceOnX = 5f;
 
     [SerializeField] int AttackDmageLight = 1;
     [SerializeField] int AttackDmageHeavy = 2;
+    [SerializeField] Transform attackPoint;
+    [SerializeField] float attackRange;
+    [SerializeField] LayerMask enemyLayers;
+    [SerializeField] GameObject heavyAttackLauncher;
+
+
 
     private List<GameObject> currentGameObjects;
     void Start()
     {
-
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public  void launchHeavyAttack(InputAction.CallbackContext context)
+    // Create a range attack object
+    // Launch that range attack
+    // check if that range attack collides with enemy
+    // On collision do damage and destroy heavy attack object
+    public  void HeavyAttack(InputAction.CallbackContext context)
     {
         if (context.started || context.canceled)
         {
             return;
         }
-        Debug.Log("heavy Attack launch called");
-        GameObject attackObj = createHeavyAttackObject();
-        Launch(attackObj);
-        StartCoroutine(waitAndDestroy(attackObj));
+        Debug.Log("Creating heavy attack Object");
+        // Instantiate(heavy_attack_prefab, heavyAttackLauncher.transform);
+        Instantiate(heavy_attack_prefab, heavyAttackLauncher.transform.position, heavyAttackLauncher.transform.rotation);
 
     }
 
-    // This method will wait for a few seconds and then check if object still exists. If it does then it will destroy it.
-    IEnumerator waitAndDestroy(GameObject obj){
-        yield return new WaitForSecondsRealtime(waitBeforeDestroy);
-        Destroy(obj);
-    }
-
-    private void Launch(GameObject attackObj)
+    public void performLightAttack(InputAction.CallbackContext context)
     {
-        Rigidbody2D heavyAttackObject = attackObj.GetComponent<Rigidbody2D>();
-        Vector2 attackForce = new Vector2(heavyAttackObject.velocity.x + 10f, heavyAttackObject.velocity.y);
-        heavyAttackObject.AddForce(Vector2.right * forceOnX * transform.localScale.x, ForceMode2D.Impulse);
-    }
-
-    GameObject createHeavyAttackObject(){
-        GameObject attackObj = Instantiate(heavy_attack_prefab, transform, true);
-        Vector3 attackObjectPosition = gameObject.transform.position;
-        attackObjectPosition.x += 3f * transform.localScale.x;
-        attackObj.transform.position = attackObjectPosition;
-        return attackObj;
-    }
-
-    public int getHitValue(string attackTag){
-        if(attackTag == "HeavyAttack"){
-            return AttackDmageHeavy;
-        }else{
-            return AttackDmageLight;
-        }   
-    }
-
-    void performLightAttack(InputAction.CallbackContext context){
-        if(context.started || context.canceled){
+        if (context.started || context.canceled)
+        {
             return;
         }
-        CapsuleCollider2D lightAttackRange = gameObject.GetComponent<CapsuleCollider2D>();
+        Attack(attackPoint);
+    }
+
+    public  void Attack(Transform attackPoint)
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("We hit" + enemy.name);
+            enemy.gameObject.GetComponent<EnemyHealth>().takeDamage(AttackDmageLight);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if(attackPoint == null){
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);    
     }
 
 }

@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] int health = 10;
+    [SerializeField] int health = 20;
+    [SerializeField] HealthBar hpbar;
     private PlayerAttack pttack;
     // Start is called before the first frame update
     void Start()
     {
         pttack = FindObjectOfType<PlayerAttack>();
+        hpbar.setMaxHealth(health);
+        
     }
 
     // Update is called once per frame
@@ -23,19 +26,14 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnCollisionEnter2D(Collision2D attack)
-    {
-        Debug.Log(attack.collider);
-        if(attack.gameObject.tag == "HeavyAttack"){
-            Destroy(attack.gameObject);
-            health -= pttack.getHitValue(attack.gameObject.tag);
-            Debug.Log(health);
-        }
-        
+
+    public void  takeDamage(int damageValue){
+        Debug.Log("taking hit damage");
+        health -= damageValue;
+        updateHealthBar();
     }
 
-    public void  takeLightHitDamage(int damageValue){
-        Debug.Log("taking light hit damage");
-        health -= damageValue;
+    void updateHealthBar(){
+        hpbar.setHealth(health);
     }
 }

@@ -116,6 +116,15 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TriggerHealthBarTest"",
+                    ""type"": ""Button"",
+                    ""id"": ""d54b72f9-326d-46bc-9ae7-e5056df1a635"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -358,6 +367,17 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""HeavyFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac39c69c-4a50-46f3-b4c7-ea71bf756137"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TriggerHealthBarTest"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -955,6 +975,7 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         m_Player_Guard = m_Player.FindAction("Guard", throwIfNotFound: true);
         m_Player_LaserControl = m_Player.FindAction("LaserControl", throwIfNotFound: true);
         m_Player_HeavyFire = m_Player.FindAction("HeavyFire", throwIfNotFound: true);
+        m_Player_TriggerHealthBarTest = m_Player.FindAction("TriggerHealthBarTest", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1036,6 +1057,7 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
     private readonly InputAction m_Player_Guard;
     private readonly InputAction m_Player_LaserControl;
     private readonly InputAction m_Player_HeavyFire;
+    private readonly InputAction m_Player_TriggerHealthBarTest;
     public struct PlayerActions
     {
         private @TheBoarderPlayerMovements m_Wrapper;
@@ -1050,6 +1072,7 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         public InputAction @Guard => m_Wrapper.m_Player_Guard;
         public InputAction @LaserControl => m_Wrapper.m_Player_LaserControl;
         public InputAction @HeavyFire => m_Wrapper.m_Player_HeavyFire;
+        public InputAction @TriggerHealthBarTest => m_Wrapper.m_Player_TriggerHealthBarTest;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1089,6 +1112,9 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                 @HeavyFire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyFire;
                 @HeavyFire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyFire;
                 @HeavyFire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyFire;
+                @TriggerHealthBarTest.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTriggerHealthBarTest;
+                @TriggerHealthBarTest.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTriggerHealthBarTest;
+                @TriggerHealthBarTest.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTriggerHealthBarTest;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1123,6 +1149,9 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
                 @HeavyFire.started += instance.OnHeavyFire;
                 @HeavyFire.performed += instance.OnHeavyFire;
                 @HeavyFire.canceled += instance.OnHeavyFire;
+                @TriggerHealthBarTest.started += instance.OnTriggerHealthBarTest;
+                @TriggerHealthBarTest.performed += instance.OnTriggerHealthBarTest;
+                @TriggerHealthBarTest.canceled += instance.OnTriggerHealthBarTest;
             }
         }
     }
@@ -1289,6 +1318,7 @@ public partial class @TheBoarderPlayerMovements : IInputActionCollection2, IDisp
         void OnGuard(InputAction.CallbackContext context);
         void OnLaserControl(InputAction.CallbackContext context);
         void OnHeavyFire(InputAction.CallbackContext context);
+        void OnTriggerHealthBarTest(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
