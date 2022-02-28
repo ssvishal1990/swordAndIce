@@ -19,12 +19,17 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] LayerMask enemyLayers;
     [SerializeField] GameObject heavyAttackLauncher;
 
+    [SerializeField] CoolDownBar heavyAttackCoolDownBar;
+    [SerializeField] int maxHeavyAttack = 3;
+    private int currentHeavyAttackSlash = 3;
+
 
 
     private List<GameObject> currentGameObjects;
     void Start()
     {
-        
+        heavyAttackCoolDownBar.setMaxValue(maxHeavyAttack);
+        heavyAttackCoolDownBar.setCurrentValue(maxHeavyAttack);
         
     }
 
@@ -34,20 +39,25 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    // Create a range attack object
-    // Launch that range attack
-    // check if that range attack collides with enemy
-    // On collision do damage and destroy heavy attack object
+
     public  void HeavyAttack(InputAction.CallbackContext context)
     {
-        if (context.started || context.canceled)
+        if (context.started || context.canceled || currentHeavyAttackSlash <=0)
         {
             return;
         }
-        Debug.Log("Creating heavy attack Object");
+        // Debug.Log("Creating heavy attack Object");
         // Instantiate(heavy_attack_prefab, heavyAttackLauncher.transform);
+        Debug.Log(currentHeavyAttackSlash);
+        currentHeavyAttackSlash--;
+        heavyAttackCoolDownBar.setCurrentValue(currentHeavyAttackSlash);
         Instantiate(heavy_attack_prefab, heavyAttackLauncher.transform.position, heavyAttackLauncher.transform.rotation);
 
+    }
+
+    public void increasecurrentHeavyAttackSlash(){
+        currentHeavyAttackSlash++;
+        heavyAttackCoolDownBar.setCurrentValue(currentHeavyAttackSlash);
     }
 
     public void performLightAttack(InputAction.CallbackContext context)

@@ -10,13 +10,16 @@ public class PlayerHeavyAttackObject : MonoBehaviour
     [SerializeField] float slashSpeed = 1f;
     [SerializeField] float waitBeforeDestroy = 0.05f;
     Rigidbody2D heavyAttackRigidBody;
+    PlayerAttack pattack;
 
     float speedOnX;
     Vector2 forceOnX;
     GameObject currentAttackSlash;
     void Start()
     {
+        pattack = FindObjectOfType<PlayerAttack>();
         LaunchTheHeavyAttack();
+        
     }
 
     // Update is called once per frame
@@ -30,7 +33,8 @@ public class PlayerHeavyAttackObject : MonoBehaviour
     private void LaunchTheHeavyAttack()
     {
         heavyAttackRigidBody = gameObject.GetComponent<Rigidbody2D>();
-        PlayerAttack pattack = FindObjectOfType<PlayerAttack>();
+        Vector3 SlashLocalScale = pattack.transform.localScale;
+        transform.localScale = SlashLocalScale;
         speedOnX = pattack.transform.localScale.x * slashSpeed;
         forceOnX = new Vector2(speedOnX, 0f);
         heavyAttackRigidBody.velocity = forceOnX;
@@ -49,7 +53,7 @@ public class PlayerHeavyAttackObject : MonoBehaviour
             StartCoroutine(pushAfterHitThenDestroy());
         }else{
             if(other.gameObject.tag != "Player"){
-                Destroy(gameObject);
+                StartCoroutine(pushAfterHitThenDestroy());
             }
         }
         
@@ -58,5 +62,7 @@ public class PlayerHeavyAttackObject : MonoBehaviour
     IEnumerator pushAfterHitThenDestroy(){
         yield return new WaitForSecondsRealtime(waitBeforeDestroy);
         Destroy(gameObject);
+        pattack.increasecurrentHeavyAttackSlash();
+
     }
 }
