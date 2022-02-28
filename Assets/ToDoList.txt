@@ -1,12 +1,14 @@
 To do:: 
 
-Add enemies
+Add enemies --> done --> Add enemy sprites
 Add animation
 Add Grappling Hook -- Done
-Add attack 
+Add attack --> done
 Add beam like thing 
-Add health bars
-Add Stamina ?
+Add health bars --> done
+Add Stamina  --> done 
+
+
 
 
 Laser and health bars

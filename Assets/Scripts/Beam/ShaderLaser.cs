@@ -56,6 +56,7 @@ public class ShaderLaser : MonoBehaviour
 
         if(hit){
             lineRenderer.SetPosition(1, hit.point);
+            Debug.Log(hit.collider.gameObject.name);
         }
     }
     void DisableLaser(){

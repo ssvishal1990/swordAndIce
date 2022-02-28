@@ -9,11 +9,8 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] GameObject heavy_attack_prefab;
-    [SerializeField] float waitBeforeDestroy = 1f;
-    [SerializeField] float forceOnX = 5f;
 
     [SerializeField] int AttackDmageLight = 1;
-    [SerializeField] int AttackDmageHeavy = 2;
     [SerializeField] Transform attackPoint;
     [SerializeField] float attackRange;
     [SerializeField] LayerMask enemyLayers;
