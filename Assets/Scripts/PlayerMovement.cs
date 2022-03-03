@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     
     bool facingRight = true;
     [SerializeField] float x_axis_move_speed = 1f;
+    [SerializeField] float jumpForce = 5f;
 
     Vector2 moveInput;
     // Start is called before the first frame update
@@ -21,9 +22,6 @@ public class PlayerMovement : MonoBehaviour
         playerRgBd = GetComponent<Rigidbody2D>();
         movements = new TheBoarderPlayerMovements();
         playerBody = GetComponent<CapsuleCollider2D>();
-        // // // movements.Player.Movement.performed += movementPerformend;
-        // movements.Player.Enable();
-        // movements.Player.Jump.performed += Jump;
     }
 
     private void Update()
@@ -55,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         // Debug.Log("Jump " + context);
         if(context.performed && playerBody.IsTouchingLayers(LayerMask.GetMask("Platform","Ground", "ClimbableIce"))){
             // Debug.Log("Jump " + context);
-            playerRgBd.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+            playerRgBd.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             
         }
     }

@@ -72,7 +72,14 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("We hit" + enemy.name);
-            enemy.gameObject.GetComponent<EnemyHealth>().takeDamage(AttackDmageLight);
+            EnemyHealth enemyHealthComponent =  enemy.gameObject.GetComponent<EnemyHealth>();
+            CreateLadderOnDestroy toCreateLadder = enemy.gameObject.GetComponent<CreateLadderOnDestroy>();
+            if(enemyHealthComponent != null){
+                enemyHealthComponent.takeDamage(AttackDmageLight);
+            }else if(toCreateLadder != null){
+                toCreateLadder.takeDamge(AttackDmageLight);
+            }
+
         }
     }
 

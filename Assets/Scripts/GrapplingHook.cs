@@ -8,6 +8,8 @@ public class GrapplingHook : MonoBehaviour
 {
     [SerializeField] GameObject ropeLinkPrefab;
     [SerializeField] int numberOfLinksLower = 3;
+
+    [SerializeField] 
     GameObject platform;
 
     // Start is called before the first frame update
@@ -28,10 +30,14 @@ public class GrapplingHook : MonoBehaviour
             return;
         }
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        RaycastHit2D rayHit= Physics2D.Raycast(mousePosition, Vector2.zero);
+        RaycastHit2D rayHit= Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("GrapplingPlatform"));
+        Debug.Log("Inside Grapling hook creator");
         if(rayHit.collider){
+            
             if(rayHit.collider.tag == "GrapplingPlatform")
             {
+
+                Debug.Log("Grapling tag collider detected");
                 bool alreadyExistingLinkDetected = false;
                 Transform[] link = gameObject.GetComponentsInChildren<Transform>();
                 alreadyExistingLinkDetected = CheckForExistingLink(alreadyExistingLinkDetected, link);
@@ -46,6 +52,8 @@ public class GrapplingHook : MonoBehaviour
                     GenerateGrapplingHook(rayHit);
                 }
 
+            }else{
+                Debug.Log(rayHit.collider.tag + rayHit.collider.gameObject.name);
             }
         }
     }
@@ -84,6 +92,7 @@ public class GrapplingHook : MonoBehaviour
         for (int i = 0; i < noOfLinks; i++)
         {
             GameObject link = Instantiate(ropeLinkPrefab, transform, true);
+            // GameObject link = Instantiate(ropeLinkPrefab, transform.position, transform.rotation, transform);
             HingeJoint2D hinge = link.GetComponent<HingeJoint2D>();
             hinge.autoConfigureConnectedAnchor = false;
             hinge.connectedBody = previousRBD;

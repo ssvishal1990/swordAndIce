@@ -22,7 +22,7 @@ public class Ladder : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Player Detected");
-        if(other.tag == "Player"){
+        if(other.tag == "Player" && other.name =="Player"){
             canClimb = true;
             playerBody = other.GetComponent<Rigidbody2D>();
         }
