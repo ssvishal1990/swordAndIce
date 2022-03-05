@@ -12,6 +12,9 @@ TagManager:
   - Enemies
   - HeavyAttack
   - CameraBoundary
+  - Boundary
+  - BouncyPad
+  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -61,11 +64,11 @@ TagManager:
   - name: BackGround
     uniqueID: 3796682383
     locked: 0
-  - name: IceGround
-    uniqueID: 3817924447
-    locked: 0
   - name: Boundary
     uniqueID: 253211067
+    locked: 0
+  - name: IceGround
+    uniqueID: 3817924447
     locked: 0
   - name: Snow
     uniqueID: 97533351

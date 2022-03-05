@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class EnemyTurn : MonoBehaviour
 {
-    GameObject mainEnemyBodyObject;
+
     Rigidbody2D enemyRigidBody; 
 
     Transform[] listOfParentObjects;
+    [SerializeField] GameObject mainEnemyBodyObject;
 
     [SerializeField] Vector2 moveValue;
+    [SerializeField] List<string> turnWhenCollidingWithObjectTags =  new List<string>();
     private void Start()
     {
-        GetMainEnemyBody();
+        // GetMainEnemyBody();
         enemyRigidBody = mainEnemyBodyObject.GetComponent<Rigidbody2D>();
     }
 
@@ -35,16 +37,33 @@ public class EnemyTurn : MonoBehaviour
         Move();
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("On trigger enter detected" + other.tag + "  " + other.name);
+        if(turnWhenCollidingWithObjectTags.Contains(other.tag)){
+            FlipEnemy();
+        }
+    }
     private void Move(){
         enemyRigidBody.velocity = moveValue;
     }
+
+
     private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.tag == "Ground"){
-            moveValue.x *= -1;
-            Vector3 enemyLocalScale = mainEnemyBodyObject.transform.localScale;
-            enemyLocalScale.x *= -1;
-            mainEnemyBodyObject.transform.localScale = enemyLocalScale; 
+        Debug.Log("Detected Trigger Exit == " + other.tag);
+        if(other.tag == "Ground")
+        {
+            Debug.Log("Exitting Platform");
+            FlipEnemy();
         }
+    }
+
+    private void FlipEnemy()
+    {
+        moveValue.x *= -1;
+        Vector3 enemyLocalScale = mainEnemyBodyObject.transform.localScale;
+        enemyLocalScale.x *= -1;
+        mainEnemyBodyObject.transform.localScale = enemyLocalScale;
     }
 }
