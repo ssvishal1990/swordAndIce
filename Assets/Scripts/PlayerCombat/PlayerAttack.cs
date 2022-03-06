@@ -18,6 +18,9 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] CoolDownBar heavyAttackCoolDownBar;
     [SerializeField] int maxHeavyAttack = 3;
+    int hitCount = 1;
+
+    PlayerAnimations playerAnimations;
     private int currentHeavyAttackSlash = 3;
 
 
@@ -27,6 +30,7 @@ public class PlayerAttack : MonoBehaviour
     {
         heavyAttackCoolDownBar.setMaxValue(maxHeavyAttack);
         heavyAttackCoolDownBar.setCurrentValue(maxHeavyAttack);
+        playerAnimations = GetComponent<PlayerAnimations>();
         
     }
 
@@ -64,10 +68,17 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         Attack(attackPoint);
+        if(hitCount == 3){
+            hitCount = 1;
+        }
+
+        playerAnimations.setLightAttackCombatAnimation(hitCount);
+        hitCount++;
     }
 
     public  void Attack(Transform attackPoint)
     {
+        
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
         {

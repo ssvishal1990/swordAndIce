@@ -7,10 +7,12 @@ public class Ladder : MonoBehaviour
  TheBoarderPlayerMovements movements;
     bool canClimb = false;
     Rigidbody2D playerBody;
+    PlayerAnimations playerAnimations;
     // Start is called before the first frame update
     void Start()
     {
         movements = new TheBoarderPlayerMovements();
+        playerAnimations = FindObjectOfType<PlayerAnimations>();
     }
 
     // Update is called once per frame
@@ -21,10 +23,12 @@ public class Ladder : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Player Detected");
+        
         if(other.tag == "Player" && other.name =="Player"){
             canClimb = true;
+            // Debug.Log("Player Detected");
             playerBody = other.GetComponent<Rigidbody2D>();
+            // playerAnimations.SetClimbingState(canClimb);
         }
     }
 
@@ -43,6 +47,7 @@ public class Ladder : MonoBehaviour
     {
         if(other.tag == "Player"){
             canClimb = false;
+            // playerAnimations.SetClimbingState(canClimb);
             // playerBody = other.GetComponent<Rigidbody2D>();
         }
     }

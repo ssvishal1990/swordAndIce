@@ -39,7 +39,7 @@ public class EnemyTurn : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("On trigger enter detected" + other.tag + "  " + other.name);
+        // Debug.Log("On trigger enter detected" + other.tag + "  " + other.name);
         if(turnWhenCollidingWithObjectTags.Contains(other.tag)){
             FlipEnemy();
         }
@@ -51,10 +51,9 @@ public class EnemyTurn : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Detected Trigger Exit == " + other.tag);
+        // Debug.Log("Detected Trigger Exit == " + other.tag);
         if(other.tag == "Ground")
         {
-            Debug.Log("Exitting Platform");
             FlipEnemy();
         }
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     bool facingRight = true;
     [SerializeField] float x_axis_move_speed = 1f;
     [SerializeField] float jumpForce = 5f;
+    [SerializeField] float screex_value_left = 0.8f;
+    [SerializeField] float screex_value_right = 0.2f; 
 
     Vector2 moveInput;
     // Start is called before the first frame update
@@ -62,6 +65,13 @@ public class PlayerMovement : MonoBehaviour
     void flipSprite(){
         transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
         facingRight = !facingRight;
+        UpdateCamera updateCamera = gameObject.GetComponent<UpdateCamera>();
+        if(facingRight){
+            updateCamera.UpdateDirection(screex_value_right);
+        }else{
+            updateCamera.UpdateDirection(screex_value_left);
+        }
+        
     }
 
     void playerDeath(){
