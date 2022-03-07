@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 8911733757358119616}
   - component: {fileID: 1588491141}
   - component: {fileID: 1588491142}
+  - component: {fileID: 1588491152}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -557,7 +558,7 @@ Animator:
   m_GameObject: {fileID: 8108343723983037201}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9592059b318712648b89a849fd31d427, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -579,7 +580,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb66f7c524182a546909e69968b466d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cinemachineVirtualCamera2: {fileID: 0}
+  cinemachineVirtualCamera2: {fileID: 2357701910588940067, guid: 24f6ba007621bb24a9f31b82765e3770, type: 3}
+--- !u!114 &1588491152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108343723983037201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a3ada0db972b2408c1db4ee8d20629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &804535794341809960
 PrefabInstance:
   m_ObjectHideFlags: 0

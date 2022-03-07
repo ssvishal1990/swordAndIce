@@ -18,10 +18,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float screex_value_left = 0.8f;
     [SerializeField] float screex_value_right = 0.2f; 
 
+    PlayerHealthSystem playerHealthSystem;
+
     Vector2 moveInput;
     // Start is called before the first frame update
     private void Awake()
     {
+        playerHealthSystem = GetComponent<PlayerHealthSystem>();
         playerRgBd = GetComponent<Rigidbody2D>();
         movements = new TheBoarderPlayerMovements();
         playerBody = GetComponent<CapsuleCollider2D>();
@@ -76,7 +79,8 @@ public class PlayerMovement : MonoBehaviour
 
     void playerDeath(){
         if(playerBody.IsTouchingLayers(LayerMask.GetMask("Hazard"))){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            playerHealthSystem.playerDeath();
         }
     }
 

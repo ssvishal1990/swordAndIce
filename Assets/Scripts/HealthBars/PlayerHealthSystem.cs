@@ -11,9 +11,14 @@ public class PlayerHealthSystem : MonoBehaviour
 
     bool healthRegenRequired = false;
     int initialHealthRegenDelay = 4;
+
+    public int maxLives = 3;
+    [SerializeField] int noOfLifes = 3; // We cannot go this way because this is not persisting value that is after every death this is set to 3 again
+     GameSessionController gameSessionController;
     // Start is called before the first frame update
     void Start()
     {
+        gameSessionController = FindObjectOfType<GameSessionController>();
         playerMaxHealth = 10;
         currentHealth = playerMaxHealth;
         playerHealthSystem.setMaxHealth(currentHealth);
@@ -26,6 +31,14 @@ public class PlayerHealthSystem : MonoBehaviour
         checkHealth();
     }
 
+    public int currentNoOfLives(){
+        return noOfLifes;
+    }
+
+    public void playerDeath(){
+        gameSessionController.ProcessPlayerDeath();
+    }
+
     public void checkHealth(){
         if(healthRegenRequired){
             StartCoroutine(healReqUpdate(initialHealthRegenDelay));
@@ -35,8 +48,15 @@ public class PlayerHealthSystem : MonoBehaviour
             currentHealth = playerMaxHealth;
         }
         if(currentHealth <= 0){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            noOfLifes--;
+            // gameSessionController.PlayerJustDied();
+            gameSessionController.ProcessPlayerDeath();
         }
+    }
+
+    public int   getCurrentHealth(){
+        return noOfLifes;
     }
     public void onDamage(int damageValue){
         currentHealth -= damageValue;
