@@ -26,8 +26,10 @@ public class CreateLadderOnDestroy : MonoBehaviour
         Transform ladderPosition = transform;
         Vector3  LadderPositionVector = ladderPosition.position;
         LadderPositionVector.y += 6f;
+        GameObject sessionObject = GameObject.FindGameObjectWithTag("ScenePersist");
         ladderPosition.position = LadderPositionVector;
-        Instantiate(ladderPrefab, ladderPosition.position, transform.rotation);
+        Instantiate(ladderPrefab, ladderPosition.position, transform.rotation, sessionObject.transform);
+        // Instantiate(ladderPrefab, ladderPosition.position, transform.rotation);
         Destroy(gameObject);
     }
     public void takeDamge(int damageValue){

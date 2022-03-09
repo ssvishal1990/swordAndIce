@@ -14,9 +14,11 @@ public class UpdateCamera : MonoBehaviour
     }
 
     public void  UpdateDirection(float screex_value){
-       CinemachineFramingTransposer cinemachineFramingTransposer = cinemachineVirtualCamera2.GetCinemachineComponent<CinemachineFramingTransposer>();
+        CinemachineFramingTransposer cinemachineFramingTransposer = cinemachineVirtualCamera2.GetCinemachineComponent<CinemachineFramingTransposer>();
     //    Debug.Log(cinemachineFramingTransposer + "   " + cinemachineFramingTransposer.m_ScreenX);
-       cinemachineFramingTransposer.m_ScreenX = screex_value;
+        // Debug.Log(cinemachineVirtualCamera2);
+        // Debug.Log(cinemachineFramingTransposer);
+        cinemachineFramingTransposer.m_ScreenX = screex_value;
     }
 
 }

@@ -82,7 +82,7 @@ public class PlayerAttack : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
         {
-            Debug.Log("We hit" + enemy.name);
+            // Debug.Log("We hit" + enemy.name);
             EnemyHealth enemyHealthComponent =  enemy.gameObject.GetComponent<EnemyHealth>();
             CreateLadderOnDestroy toCreateLadder = enemy.gameObject.GetComponent<CreateLadderOnDestroy>();
             if(enemyHealthComponent != null){

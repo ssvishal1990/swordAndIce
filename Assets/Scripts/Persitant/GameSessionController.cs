@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class GameSessionController : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI score;
+    [SerializeField] TextMeshProUGUI scoreTMP;
     [SerializeField] TextMeshProUGUI lives;
 
 
     [SerializeField] int playerLifes = 5;
+    int score = 0;
 
 
 
@@ -50,18 +51,40 @@ public class GameSessionController : MonoBehaviour
 
     private void ResetGameSession()
     {
-        SceneManager.LoadScene(0);
-        Destroy(gameObject);
+        Destroy(FindObjectOfType<ScenePersistant>().gameObject);
+        SceneManager.LoadScene(5);
+        // Destroy(gameObject);
     }
     void Start()
     {
         lives.text = playerLifes.ToString();
+        printScore();
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    private void printScore()
+    {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log("Inside Print Score   --> " + score 
+                    + "   and scene index is -->" + sceneIndex  
+                    + " no of game session objects" + FindObjectsOfType<GameSessionController>().Length 
+                    + "game Object ID " + gameObject.GetInstanceID());
+        scoreTMP.text = score.ToString();
+        Debug.Log("Score TMP Value -- > " + scoreTMP.text);
+    }
+
+    public void increementScore(int increementValue){
+        score+= increementValue;
+        printScore();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // printLives();
+        printScore();
     }
 
 
