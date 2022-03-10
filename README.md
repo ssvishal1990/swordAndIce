@@ -1,9 +1,11 @@
 # swordAndIce
 
-This is a first Major 2D platform game protype
 
-Idea is to include 
-Some common movement mechanics
-Level Designs 
-Enemies
-And Obtain a better understanding of using unity
+Assets used : 
+2D Ice World : https://assetstore.unity.com/packages/2d/environments/2d-ice-world-106818
+Warrior Free Asset : https://assetstore.unity.com/packages/2d/characters/warrior-free-asset-195707
+
+
+Next to mention : 
+Tutorials refered : 
+  
