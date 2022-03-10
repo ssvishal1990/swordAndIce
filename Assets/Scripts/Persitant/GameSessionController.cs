@@ -64,9 +64,9 @@ public class GameSessionController : MonoBehaviour
     }
     private void ResetGameSession()
     {
-        Destroy(GameObject.FindGameObjectWithTag("ScenePersist"));
-        StartCoroutine(restartScene(5));
-        FindObjectOfType<PlayerAnimations>().playDeathAnim();
+        // Destroy(GameObject.FindGameObjectWithTag("ScenePersist"));
+        Destroy(FindObjectOfType<ScenePersistant>().gameObject);
+        SceneManager.LoadScene(5);
     }
 
     void Start()
