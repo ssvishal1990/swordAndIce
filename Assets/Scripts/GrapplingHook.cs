@@ -75,7 +75,7 @@ public class GrapplingHook : MonoBehaviour
         if(context.canceled || context.started){
             return;
         }
-        Debug.Log("Entered Link Destroyer method");
+        // Debug.Log("Entered Link Destroyer method");
         Transform[] links = GetComponentsInChildren<Transform>();
         foreach(Transform link in links){
             if(link.gameObject.tag == "Link"){

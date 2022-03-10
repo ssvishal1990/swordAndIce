@@ -59,14 +59,36 @@ public class PlayerAnimations : MonoBehaviour
     }
 
     public void setLightAttackCombatAnimation(int hitCounter){
-        playerAnimator.SetInteger("LightAttackHit", hitCounter);
-        playerAnimator.SetBool("noAttack",false);
-        StartCoroutine(setNoAttack());
+        // playerAnimator.SetInteger("LightAttackHit", hitCounter);
+        // playerAnimator.SetBool("noAttack",false);
+        // StartCoroutine(setNoAttack());
+        if(!playerAnimator.GetBool("LightAttack1check")){
+            playerAnimator.SetBool("LightAttack1check", true);
+            playerAnimator.SetTrigger("LightAttack1");
+
+            StartCoroutine(setFirstAttackBool());
+        }else{
+            playerAnimator.SetTrigger("LightAttack2");
+            playerAnimator.SetBool("LightAttack1check", false);
+        }
+    }
+
+    IEnumerator setFirstAttackBool(){
+        yield return new WaitForSecondsRealtime(2);
+        playerAnimator.SetBool("LightAttack1check", false);
+    }
+
+    public void setHeavyAttackTrigger(){
+        playerAnimator.SetTrigger("HeavyAttack");
     }
 
     IEnumerator setNoAttack(){
         yield return new WaitForSecondsRealtime(2);
         playerAnimator.SetBool("noAttack",true);
         playerAnimator.SetInteger("LightAttackHit", -1);
+    }
+
+    public void playDeathAnim(){
+        playerAnimator.SetTrigger("onDeath");
     }
 }

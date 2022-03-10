@@ -23,6 +23,8 @@ public class EnemyHealth : MonoBehaviour
 
     void checkHealth(){
         if(health <= 0){
+            GameSessionController gameSessionController = FindObjectOfType<GameSessionController>();
+            gameSessionController.increementScore(100);
             Destroy(gameObject);
         }
     }

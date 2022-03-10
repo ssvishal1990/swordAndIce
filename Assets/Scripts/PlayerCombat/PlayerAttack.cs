@@ -50,8 +50,10 @@ public class PlayerAttack : MonoBehaviour
         // Debug.Log("Creating heavy attack Object");
         // Instantiate(heavy_attack_prefab, heavyAttackLauncher.transform);
         Debug.Log(currentHeavyAttackSlash);
+        playerAnimations.setHeavyAttackTrigger();
         currentHeavyAttackSlash--;
         heavyAttackCoolDownBar.setCurrentValue(currentHeavyAttackSlash);
+
         Instantiate(heavy_attack_prefab, heavyAttackLauncher.transform.position, heavyAttackLauncher.transform.rotation);
 
     }
